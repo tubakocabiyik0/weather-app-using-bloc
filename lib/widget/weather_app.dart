@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,7 @@ class _WeatherAppState extends State<WeatherApp> {
   @override
   Widget build(BuildContext context) {
     final _weather = Provider.of<WeatherBloc>(context);
-
+    Completer _completer = Completer();
 
     return Scaffold(
       appBar: AppBar(
@@ -49,19 +51,27 @@ class _WeatherAppState extends State<WeatherApp> {
           );
         } else if (state is WeatherLoaded) {
           final weather=state.weather;
-          return ListView(
-            children: [
-              Center(child: LocationWidget(weather.title)),
-              Center(
-                child: LastTimeWidget(),
-              ),
-              Center(
-                child: WeatherImageWidget(),
-              ),
-              Center(
-                child: MaxMinWidget(),
-              )
-            ],
+          _completer.complete();
+          _completer=Completer();
+          return RefreshIndicator(
+           onRefresh: (){
+             _weather.add(RefreshWeather(cityName: city));
+             return _completer.future;
+           },
+            child: ListView(
+              children: [
+                Center(child: LocationWidget(weather.title)),
+                Center(
+                  child: LastTimeWidget(),
+                ),
+                Center(
+                  child: WeatherImageWidget(),
+                ),
+                Center(
+                  child: Expanded(child: MaxMinWidget()),
+                )
+              ],
+            ),
           );
         } else if (state is WeatherError) {
           return Text("erros");
