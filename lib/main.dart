@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wheather_app_bloc/bloc/weather_bloc.dart';
 import 'package:wheather_app_bloc/widget/weather_app.dart';
 
 void main() {
@@ -11,7 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WeatherApp(),
+      home: BlocProvider<WeatherBloc>(
+          create:(context)=> WeatherBloc(),
+          child: WeatherApp()),
     );
   }
 }

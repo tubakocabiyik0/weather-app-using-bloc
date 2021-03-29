@@ -36,12 +36,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       child: IconButton(
                           icon: Icon(Icons.search),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WeatherApp(
-                                          cityName: getCountry.text,
-                                        )));
+                            Navigator.pop(context,getCountry.text);
                           }),
                     ),
                   ],
