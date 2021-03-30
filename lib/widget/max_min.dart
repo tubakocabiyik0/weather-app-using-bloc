@@ -11,8 +11,8 @@ class MaxMinWidget extends StatelessWidget {
       return  Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("Maximum : "+ (state as WeatherLoaded).weather.consolidatedWeather[0].maxTemp.toString() , style: TextStyle(fontSize: 22)),
-            Text("Minimum : " + (state as WeatherLoaded).weather.consolidatedWeather[0].minTemp.toString(), style: TextStyle(fontSize: 22)),
+            Expanded(child:  Text("Maximum : "+ (state as WeatherLoaded).weather.consolidatedWeather[0].maxTemp.toString() , style: TextStyle(fontSize: 22))),
+            Expanded(child: Text("Minimum : " + (state as WeatherLoaded).weather.consolidatedWeather[0].minTemp.toString(), style: TextStyle(fontSize: 22))),
           ],
       );
     }
